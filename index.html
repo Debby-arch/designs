@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Showcase</title>
+<link rel="stylesheet" href="styles.css">
+<script src="script.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Design Showcase</h1>
+    <div class="design-gallery">
+        <!-- Design cards will be dynamically generated here -->
+    </div>
+    <div class="upload-form">
+        <input type="file" id="upload-input" multiple accept="image/*">
+        <label for="upload-input">Upload Designs</label>
+    </div>
+</div>
+
+<script>
+    // Function to handle file upload
+    document.getElementById('upload-input').addEventListener('change', function(event) {
+        const files = event.target.files;
+        const gallery = document.querySelector('.design-gallery');
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+
+                    const card = document.createElement('div');
+                    card.classList.add('design-card');
+                    card.appendChild(img);
+
+                    gallery.appendChild(card);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
